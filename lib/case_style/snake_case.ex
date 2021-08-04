@@ -16,26 +16,7 @@ defmodule CaseStyle.SnakeCase do
   }
 
   use AbnfParsec,
-    abnf: """
-    case = [literal] [first-char] string 
-    double-underscore = "__"
-    string = 1*char
-
-    char = 1*(lowercase-spacing / uppercase-spacing / digitchar-spacing / lowercase / uppercase / digitchar / literal)
-    first-char = lowerchar / upperchar
-    lowercase = lowerchar
-    lowercase-spacing = spacing-char lowerchar
-    lowerchar = %x61-7A
-    uppercase-spacing = spacing-char upperchar
-    uppercase = upperchar
-    upperchar = %x41-5A
-    digitchar-spacing = spacing-char digit
-    digitchar = digit
-    digit = %x30-39
-    literal = double-underscore / %x21-2F / %x3A-40 /  %x5B-60 / %x7B-7E / spacing-char
-    spacing-char = "_"
-
-    """,
+    abnf_file: "priv/case_style/snake_case.abnf",
     unbox: [
       "lowerchar",
       "upperchar",
@@ -46,7 +27,6 @@ defmodule CaseStyle.SnakeCase do
       "spacing-char",
       "double-underscore"
     ],
-    # ignore: ["char"],
     parse: :case,
     transform: %{
       "case" => {:post_traverse, :post_processing}

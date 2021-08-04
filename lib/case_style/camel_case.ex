@@ -15,23 +15,8 @@ defmodule CaseStyle.CamelCase do
   }
 
   use AbnfParsec,
-    abnf: """
-    case = [literal] [first-char] string 
-    string = 1*char
-
-    char = lowercase / uppercase / digitchar / literal
-    first-char = lowerchar / upperchar
-    lowercase = lowerchar
-    lowerchar = %x61-7A
-    uppercase = upperchar
-    upperchar = %x41-5A
-    digitchar = digit
-    digit = %x30-39
-    literal = %x21-2F / %x3A-40 /  %x5B-60 / %x7B-7E / "_"
-
-    """,
+    abnf_file: "priv/case_style/camel_case.abnf",
     unbox: ["lowerchar", "upperchar", "char", "case", "string", "digit"],
-    # ignore: ["char"],
     parse: :case,
     transform: %{
       "case" => {:post_traverse, :post_processing}
