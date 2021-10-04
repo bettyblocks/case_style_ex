@@ -8,6 +8,7 @@ defmodule CaseStyle.CamelCase do
     FirstLetter,
     Char,
     AfterSpacingChar,
+    AfterSpacingDigit,
     Digit,
     Literal,
     End,
@@ -54,7 +55,8 @@ defmodule CaseStyle.CamelCase do
   defp stringify_token(%module{value: x}) when module in [FirstLetter, Char],
     do: x
 
-  defp stringify_token(%module{value: x}) when module in [Digit, AfterSpacingDigit], do: x
+  defp stringify_token(%module{value: x}) when module in [Digit], do: x
+  defp stringify_token(%module{value: x}) when module in [AfterSpacingDigit], do: [?_, x]
   defp stringify_token(%Literal{value: x}), do: x
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])

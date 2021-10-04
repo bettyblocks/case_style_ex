@@ -68,14 +68,6 @@ defmodule CaseStyle.SnakeCase do
 
   @lowercase_digits_and_underscore Enum.concat([?a..?z, ?0..?9, '_'])
   def might_be?(input) do
-    # (String.downcase(input) == input) && String.contains?(input, "_")
     input |> String.to_charlist() |> Enum.all?(fn x -> x in @lowercase_digits_and_underscore end)
   end
 end
-
-# Enum.map(33..126, fn x -> "\"#{<<x>>}\" / " end) |> Enum.join() |> IO.puts()
-# char = %x21-5E / %x60-7E ; every thing except  5F or _
-# char = "!" / "\"" / "#" / "$" / "%" / "&" / "'" / "(" / ")" / "*" / "+" / "," / "-" / "." / "0" / "1" / "2" / "3" / "4" / "5" / "6" / "7" / "8" / "9" / ":" / ";" / "<" / "=" / ">" / "?" / "@" / "A" / "B" / "C" / "D" / "E" / "F" / "G" / "H" / "I"  / "J" / "K" / "L" / "M" / "N" / "O" / "P" / "Q" / "R" / "S" / "T" / "U" / "V" / "W" / "X" / "Y" / "Z" / "[" / "\" / "]" / "^" / "`" / "a" / "b" / "c" / "d" / "e" / "f" / "g" / "h" / "i" / "j" / "k" / "l" / "m" / "n" / "o" / "p" / "q" / "r" / "s" / "t" / "u" / "v" / "w" / "x" / "y" / "z" / "{" / "|" / "}" / "~"
-# char = %x21-7E
-
-# char = %x21-5E / %x60-7E ; every thing except  5F or _
