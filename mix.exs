@@ -4,10 +4,19 @@ defmodule CaseStyle.MixProject do
   def project do
     [
       app: :case_style,
-      version: "0.1.1",
+      version: "0.2.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package(),
+      description: "Convert different case-styles"
+    ]
+  end
+
+  defp package() do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/thomas9911/case_style_ex"}
     ]
   end
 
