@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    name: Testing OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
       matrix:
         otp: ['23.3', '24.1']
@@ -28,7 +28,7 @@ jobs:
       run: mix test
   dialyzer:
     runs-on: ubuntu-latest
-    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    name: Dialyzer OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
       matrix:
         otp: ['24.1']
@@ -43,8 +43,10 @@ jobs:
     - name: Restore dependencies cache
       uses: actions/cache@v2
       with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        path: |
+          deps
+          _build
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}-dialyzer
         restore-keys: ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
