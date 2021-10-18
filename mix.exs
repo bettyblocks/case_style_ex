@@ -5,7 +5,7 @@ defmodule CaseStyle.MixProject do
     [
       app: :case_style,
       version: "0.2.0",
-      elixir: "~> 1.9",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
