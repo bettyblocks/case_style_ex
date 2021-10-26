@@ -32,6 +32,7 @@ defmodule CaseStyle.MixProject do
     [
       {:abnf_parsec, "~> 1.0", runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.24", only: [:dev], runtime: false}
     ]
   end

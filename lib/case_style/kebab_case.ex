@@ -1,17 +1,20 @@
 defmodule CaseStyle.KebabCase do
+  @moduledoc """
+  Module for converting from and to kebab-case
+  """
   defstruct tokens: []
 
   @behaviour CaseStyle
 
   alias CaseStyle.Tokens.{
-    Spacing,
-    FirstLetter,
-    Char,
     AfterSpacingChar,
-    Digit,
     AfterSpacingDigit,
-    Literal,
+    Char,
+    Digit,
     End,
+    FirstLetter,
+    Literal,
+    Spacing,
     Start
   }
 

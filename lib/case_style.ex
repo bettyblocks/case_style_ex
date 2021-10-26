@@ -1,4 +1,12 @@
 defmodule CaseStyle do
+  @moduledoc """
+  Library from converting to different `CaseSyle`s
+
+  Currently implemented:
+  - `CaseStyle.CamelCase`
+  - `CaseStyle.SnakeCase`
+  - `CaseStyle.KebabCase`
+  """
   defstruct tokens: [], from_type: nil
 
   @type t :: %__MODULE__{}
@@ -80,7 +88,7 @@ defmodule CaseStyle do
     module.to_string(input)
   end
 
-  ### convenience functions 
+  ### convenience functions
 
   [
     {:snake_to_camel, CaseStyle.SnakeCase, CaseStyle.CamelCase},
