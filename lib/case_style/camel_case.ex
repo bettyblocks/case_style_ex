@@ -1,17 +1,20 @@
 defmodule CaseStyle.CamelCase do
+  @moduledoc """
+  Module for converting from and to camelCase
+  """
   defstruct tokens: []
 
   @behaviour CaseStyle
 
   alias CaseStyle.Tokens.{
-    Spacing,
-    FirstLetter,
-    Char,
     AfterSpacingChar,
     AfterSpacingDigit,
+    Char,
     Digit,
-    Literal,
     End,
+    FirstLetter,
+    Literal,
+    Spacing,
     Start
   }
 
