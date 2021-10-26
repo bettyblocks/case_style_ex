@@ -30,9 +30,9 @@ defmodule CaseStyle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   def deps do
     [
-      {:abnf_parsec, "~> 0.1", runtime: false},
+      {:abnf_parsec, "~> 1.0", runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.22", only: [:dev], runtime: false}
+      {:ex_doc, "~> 0.24", only: [:dev], runtime: false}
     ]
   end
 end
