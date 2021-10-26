@@ -2,8 +2,8 @@
 
 Convert from and to different CaseStyles.
 
-This libary is different then the others, because you need to explicitly say from and to which case you to convert.
-This is nice because you can keep some context and this makes it possible to convert between cases without losing data (check the tests for the edge case tests).
+This library is different than the others, because you need to explicitly say from and to which case you want to convert.
+This is nice because you can keep some context and this makes it possible to convert between cases without losing data (check the tests for the edge cases).
 
 ## Usage
 
@@ -18,7 +18,7 @@ converted = CaseStyle.to_string(casing, CaseStyle.CamelCase)
 # converted is "testingTesting"
 ```
 
-In the above example the modules can be dynamicly passed. If you know what you want upfront you can use the convenience functions:
+In the above example the modules can be dynamically passed. If you know what you want upfront you can use the convenience functions:
 
 ### Convenient method
 
