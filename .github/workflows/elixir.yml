@@ -26,6 +26,32 @@ jobs:
       run: mix deps.get
     - name: Run tests
       run: mix test
+  credo:
+    runs-on: ubuntu-latest
+    name: Dialyzer OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: ['24.1']
+        elixir: ['1.12.3']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@v1.9.0
+      with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          deps
+          _build
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}-credo
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Run credo
+      run: mix credo
   dialyzer:
     runs-on: ubuntu-latest
     name: Dialyzer OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
