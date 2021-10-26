@@ -34,7 +34,7 @@ by adding `case_style` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:case_style, "~> 0.2.0"}
+    {:case_style, "~> 0.2.1"}
   ]
 end
 ```
