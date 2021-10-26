@@ -1,3 +1,4 @@
 [
-   ~r"exception/1 does not exist"
+  ~r/AbnfParsec.LeftoverTokenError.exception\/1/,
+  ~r/AbnfParsec.UnexpectedTokenError.exception\/1/
 ]

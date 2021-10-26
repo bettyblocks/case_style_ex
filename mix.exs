@@ -5,11 +5,15 @@ defmodule CaseStyle.MixProject do
     [
       app: :case_style,
       version: "0.2.0",
-      elixir: "~> 1.9",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
-      description: "Convert different case-styles"
+      description: "Convert different case-styles",
+      dialyzer: [
+        ignore_warnings: ".dialyzer_ignore.exs",
+        list_unused_filters: true
+      ]
     ]
   end
 
@@ -31,7 +35,7 @@ defmodule CaseStyle.MixProject do
   def deps do
     [
       {:abnf_parsec, "~> 1.0", runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.24", only: [:dev], runtime: false}
     ]
