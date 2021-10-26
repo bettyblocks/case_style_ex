@@ -9,7 +9,7 @@ defmodule CaseStyle do
   """
   defstruct tokens: [], from_type: nil
 
-  @type t :: %__MODULE__{}
+  @type t :: %__MODULE__{tokens: CaseStyle.Tokens.t(), from_type: module}
 
   @type nimble_parsec_error ::
           {:error, binary, binary, map, {pos_integer, pos_integer}, pos_integer}

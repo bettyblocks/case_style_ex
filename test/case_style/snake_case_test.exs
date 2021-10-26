@@ -1,5 +1,5 @@
 defmodule CaseStyle.SnakeCaseTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "_ok_teSting_12" do
     input = "_ok_teSting_12"

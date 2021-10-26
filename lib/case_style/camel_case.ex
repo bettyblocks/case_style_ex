@@ -6,6 +6,8 @@ defmodule CaseStyle.CamelCase do
 
   @behaviour CaseStyle
 
+  alias CaseStyle.Tokens
+
   alias CaseStyle.Tokens.{
     AfterSpacingChar,
     AfterSpacingDigit,
@@ -17,6 +19,8 @@ defmodule CaseStyle.CamelCase do
     Spacing,
     Start
   }
+
+  @type t :: %__MODULE__{tokens: CaseStyle.Tokens.t()}
 
   use AbnfParsec,
     abnf_file: "priv/case_style/camel_case.abnf",
@@ -37,10 +41,12 @@ defmodule CaseStyle.CamelCase do
   defp parse_token({:first_char, s}), do: [%FirstLetter{value: s}]
   defp parse_token({:literal, s}), do: [%Literal{value: s}]
 
+  @impl true
   def to_string(%CaseStyle{tokens: tokens}) do
     tokens |> Enum.map(&stringify_token/1) |> Enum.join()
   end
 
+  @spec stringify_token(Tokens.possible_tokens()) :: charlist | binary
   defp stringify_token(%module{}) when module in [Start, End, Spacing], do: ''
 
   defp stringify_token(%module{value: [x]})
@@ -63,7 +69,10 @@ defmodule CaseStyle.CamelCase do
   defp stringify_token(%Literal{value: x}), do: x
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])
+  @impl true
   def might_be?(input) do
-    input |> String.to_charlist() |> Enum.all?(fn x -> x in @allowed_chars end)
+    input
+    |> String.to_charlist()
+    |> Enum.all?(fn x -> x in @allowed_chars end)
   end
 end

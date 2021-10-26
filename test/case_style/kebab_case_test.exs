@@ -1,5 +1,5 @@
 defmodule CaseStyle.KebabCaseTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "-ok-teSting-12" do
     input = "-ok-teSting-12"

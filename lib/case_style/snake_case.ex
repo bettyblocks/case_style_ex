@@ -6,6 +6,8 @@ defmodule CaseStyle.SnakeCase do
 
   @behaviour CaseStyle
 
+  alias CaseStyle.Tokens
+
   alias CaseStyle.Tokens.{
     AfterSpacingChar,
     AfterSpacingDigit,
@@ -17,6 +19,8 @@ defmodule CaseStyle.SnakeCase do
     Spacing,
     Start
   }
+
+  @type t :: %__MODULE__{tokens: Tokens.t()}
 
   use AbnfParsec,
     abnf_file: "priv/case_style/snake_case.abnf",
@@ -52,10 +56,12 @@ defmodule CaseStyle.SnakeCase do
   defp parse_token({:literal, s}), do: [%Literal{value: s}]
   defp parse_token("_"), do: [%Spacing{}]
 
+  @impl true
   def to_string(%CaseStyle{tokens: tokens}) do
     tokens |> Enum.map(&stringify_token/1) |> Enum.join()
   end
 
+  @spec stringify_token(Tokens.possible_tokens()) :: charlist
   defp stringify_token(%module{}) when module in [Start, End], do: ''
   defp stringify_token(%Spacing{}), do: '_'
 
@@ -70,7 +76,10 @@ defmodule CaseStyle.SnakeCase do
   defp stringify_token(%Literal{value: x}), do: x
 
   @lowercase_digits_and_underscore Enum.concat([?a..?z, ?0..?9, '_'])
+  @impl true
   def might_be?(input) do
-    input |> String.to_charlist() |> Enum.all?(fn x -> x in @lowercase_digits_and_underscore end)
+    input
+    |> String.to_charlist()
+    |> Enum.all?(fn x -> x in @lowercase_digits_and_underscore end)
   end
 end
