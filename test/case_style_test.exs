@@ -130,6 +130,32 @@ defmodule CaseStyleTest do
     end
   end
 
+  describe "convert!" do
+    test "camel to snake" do
+      assert "test_testing" == CaseStyle.camel_to_snake!("testTesting")
+    end
+
+    test "snake to camel" do
+      assert "testTesting" == CaseStyle.snake_to_camel!("test_testing")
+    end
+
+    test "camel to kebab" do
+      assert "test-testing" == CaseStyle.camel_to_kebab!("testTesting")
+    end
+
+    test "snake to kebab" do
+      assert "test-testing" == CaseStyle.snake_to_kebab!("test_testing")
+    end
+
+    test "kebab to snake" do
+      assert "test_testing" == CaseStyle.kebab_to_snake!("test-testing")
+    end
+
+    test "kebab to camel" do
+      assert "testTesting" == CaseStyle.kebab_to_camel!("test-testing")
+    end
+  end
+
   describe "snake to camel to snake, edge cases" do
     Enum.map(
       [

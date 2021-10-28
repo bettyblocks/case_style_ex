@@ -114,5 +114,17 @@ defmodule CaseStyle do
           e
       end
     end
+
+    @spec unquote(:"#{func_name}!")(binary) :: binary
+    @doc "same as `#{func_name}` but return a string on success and raises on error on failure"
+    def unquote(:"#{func_name}!")(input) do
+      case from_string(input, unquote(from)) do
+        {:ok, casing} ->
+          to_string(casing, unquote(to))
+
+        _ ->
+          raise "Unable to convert #{input}"
+      end
+    end
   end)
 end
