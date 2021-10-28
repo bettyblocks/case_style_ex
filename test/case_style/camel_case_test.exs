@@ -1,12 +1,13 @@
 defmodule CaseStyle.CamelCaseTest do
   use ExUnit.Case, async: true
 
-  test "_ok_teSting_12" do
+  test "okteSting12" do
     input = "_ok_teSting_12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.SnakeCase)
-    refute CaseStyle.SnakeCase.might_be?(input)
-    assert "_ok_testing_12" = output = CaseStyle.SnakeCase.to_string(casing)
-    assert CaseStyle.SnakeCase.might_be?(output)
+    refute CaseStyle.CamelCase.might_be?(input)
+    assert "_okTesting_12" = output = CaseStyle.CamelCase.to_string(casing)
+    refute CaseStyle.CamelCase.might_be?(output)
+    assert CaseStyle.CamelCase.might_be?("okTesting12")
   end
 
   Enum.each(

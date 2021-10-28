@@ -1,6 +1,6 @@
-defmodule CaseStyle.CamelCase do
+defmodule CaseStyle.PascalCase do
   @moduledoc """
-  Module for converting from and to camelCase
+  Module for converting from and to PascalCase
   """
   defstruct tokens: []
 
@@ -23,14 +23,14 @@ defmodule CaseStyle.CamelCase do
   @type t :: %__MODULE__{tokens: CaseStyle.Tokens.t()}
 
   use AbnfParsec,
-    abnf_file: "priv/case_style/camel_case.abnf",
+    abnf_file: "priv/case_style/pascal_case.abnf",
     unbox: ["lowerchar", "upperchar", "char", "case", "string", "digit"],
     parse: :case,
     transform: %{
       "case" => {:post_traverse, :post_processing}
     }
 
-  @external_resource "priv/case_style/camel_case.abnf"
+  @external_resource "priv/case_style/pascal_case.abnf"
 
   defp post_processing(_a, b, c, _d, _e) do
     tokens = [%End{}] ++ Enum.flat_map(b, &parse_token/1) ++ [%Start{}]
@@ -59,9 +59,10 @@ defmodule CaseStyle.CamelCase do
        when module in [AfterSpacingChar],
        do: [x]
 
-  defp stringify_token(%module{value: [x]})
-       when module in [FirstLetter, Char] and x in ?A..?Z,
-       do: [x + 32]
+  defp stringify_token(%module{value: [x]}) when module in [FirstLetter] and x in ?a..?z,
+    do: [x - 32]
+
+  defp stringify_token(%module{value: [x]}) when module in [Char] and x in ?A..?Z, do: [x + 32]
 
   defp stringify_token(%module{value: x}) when module in [FirstLetter, Char],
     do: x
@@ -72,7 +73,7 @@ defmodule CaseStyle.CamelCase do
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])
   @impl true
-  def might_be?(<<first_char, _>>) when first_char in ?A..?Z do
+  def might_be?(<<first_char, _>>) when first_char in ?a..?z do
     false
   end
 
