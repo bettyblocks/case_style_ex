@@ -11,6 +11,8 @@ defmodule CaseStyle.KebabCaseTest do
 
   Enum.each(
     [
+      "",
+      "t",
       "testing123",
       "testing",
       "--testing--",
@@ -27,4 +29,8 @@ defmodule CaseStyle.KebabCaseTest do
       end
     end
   )
+
+  test "fails on emoji" do
+    assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.KebabCase)
+  end
 end

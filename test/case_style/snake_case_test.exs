@@ -11,6 +11,8 @@ defmodule CaseStyle.SnakeCaseTest do
 
   Enum.each(
     [
+      "",
+      "t",
       "testing123",
       "testing",
       "__testing__",
@@ -27,4 +29,8 @@ defmodule CaseStyle.SnakeCaseTest do
       end
     end
   )
+
+  test "fails on emoji" do
+    assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.SnakeCase)
+  end
 end

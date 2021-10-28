@@ -12,9 +12,13 @@ defmodule CaseStyle do
   @type t :: %__MODULE__{tokens: CaseStyle.Tokens.t(), from_type: module}
 
   @type nimble_parsec_error ::
-          {:error, binary, binary, map, {pos_integer, pos_integer}, pos_integer}
+          {:error, any, any, any, any, any}
+  # {:error, list, binary, map, {pos_integer, pos_integer}, pos_integer}
 
-  @callback parse(input :: binary) :: {:ok, CaseStyle.t()} | nimble_parsec_error
+  @type parser_ouput :: {:ok, list, binary, map, {pos_integer, pos_integer}, pos_integer}
+
+  # @callback parse(input :: binary) :: {:ok, CaseStyle.t()} | parser_ouput | nimble_parsec_error
+  @callback parse(input :: binary) :: parser_ouput | nimble_parsec_error
   @callback might_be?(input :: binary) :: boolean
   @callback to_string(CaseStyle.t()) :: binary
 
@@ -44,7 +48,7 @@ defmodule CaseStyle do
   }
   ```
   """
-  @spec from_string(binary, module) :: {:ok, CaseStyle.t()} | nimble_parsec_error
+  @spec from_string(binary, module) :: {:ok, CaseStyle.t()} | parser_ouput | nimble_parsec_error
   def from_string(input, module) do
     case module.parse(input) do
       {:ok, tokens, "", _, _, _} ->

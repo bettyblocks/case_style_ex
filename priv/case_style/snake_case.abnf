@@ -1,6 +1,6 @@
 case = [literal] [first-char] string 
 double-underscore = "__"
-string = 1*char
+string = 0*char
 
 char = 1*(lowercase-spacing / uppercase-spacing / digitchar-spacing / lowercase / uppercase / digitchar / literal)
 first-char = lowerchar / upperchar

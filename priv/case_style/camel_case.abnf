@@ -1,5 +1,5 @@
 case = [literal] [first-char] string 
-string = 1*char
+string = 0*char
 
 char = lowercase / uppercase / digitchar / literal
 first-char = lowerchar / upperchar

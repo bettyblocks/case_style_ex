@@ -39,6 +39,8 @@ defmodule CaseStyle.KebabCase do
       "case" => {:post_traverse, :post_processing}
     }
 
+  @external_resource "priv/case_style/kebab_case.abnf"
+
   defp post_processing(_a, b, c, _d, _e) do
     tokens = [%End{}] ++ Enum.flat_map(b, &parse_token/1) ++ [%Start{}]
     {tokens, c}
