@@ -21,8 +21,9 @@ defmodule CaseStyleTest do
                 from_type: CaseStyle.SnakeCase,
                 tokens: [
                   %Start{},
-                  %Literal{value: "__"},
-                  %FirstLetter{value: 't'},
+                  %Literal{value: '_'},
+                  %Spacing{},
+                  %AfterSpacingChar{value: 't'},
                   %Char{value: 'e'},
                   %Char{value: 's'},
                   %Char{value: 't'},
@@ -204,5 +205,17 @@ defmodule CaseStyleTest do
         end
       end
     )
+  end
+
+  test "snake to camel with double underscore" do
+    assert "double_Underscore" == CaseStyle.snake_to_camel!("double__underscore")
+  end
+
+  test "snake to camel with starting underscore" do
+    assert "_something" == CaseStyle.snake_to_camel!("_something")
+  end
+
+  test "snake to camel with starting double underscore" do
+    assert "_Dunder" == CaseStyle.snake_to_camel!("__dunder")
   end
 end

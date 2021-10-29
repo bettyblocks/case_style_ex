@@ -13,5 +13,5 @@ upperchar = %x41-5A
 digitchar-spacing = spacing-char digit
 digitchar = digit
 digit = %x30-39
-literal = double-underscore / %x21-2F / %x3A-40 /  %x5B-60 / %x7B-7E / spacing-char
+literal = %x21-2F / %x3A-40 /  %x5B-60 / %x7B-7E / spacing-char
 spacing-char = "_"
