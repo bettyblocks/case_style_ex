@@ -12,7 +12,7 @@ defmodule CaseStyle.MixProject do
       description: "Convert different case-styles",
       dialyzer: [
         ignore_warnings: ".dialyzer_ignore.exs",
-        list_unused_filters: true
+        list_unused_filters: false
       ]
     ]
   end
