@@ -97,10 +97,16 @@ defmodule CaseStyle do
   [
     {:snake_to_camel, CaseStyle.SnakeCase, CaseStyle.CamelCase},
     {:snake_to_kebab, CaseStyle.SnakeCase, CaseStyle.KebabCase},
+    {:snake_to_pascal, CaseStyle.SnakeCase, CaseStyle.PascalCase},
     {:camel_to_snake, CaseStyle.CamelCase, CaseStyle.SnakeCase},
     {:camel_to_kebab, CaseStyle.CamelCase, CaseStyle.KebabCase},
+    {:camel_to_pascal, CaseStyle.CamelCase, CaseStyle.PascalCase},
     {:kebab_to_snake, CaseStyle.KebabCase, CaseStyle.SnakeCase},
-    {:kebab_to_camel, CaseStyle.KebabCase, CaseStyle.CamelCase}
+    {:kebab_to_camel, CaseStyle.KebabCase, CaseStyle.CamelCase},
+    {:kebab_to_pascal, CaseStyle.KebabCase, CaseStyle.PascalCase},
+    {:pascal_to_snake, CaseStyle.PascalCase, CaseStyle.SnakeCase},
+    {:pascal_to_camel, CaseStyle.PascalCase, CaseStyle.CamelCase},
+    {:pascal_to_kebab, CaseStyle.PascalCase, CaseStyle.KebabCase}
   ]
   |> Enum.map(fn {func_name, from, to} ->
     @spec unquote(func_name)(binary) :: {:ok, binary} | nimble_parsec_error

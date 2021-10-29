@@ -36,4 +36,12 @@ defmodule CaseStyle.PascalCaseTest do
   test "fails on emoji" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.PascalCase)
   end
+
+  test "fails on lowercase char" do
+    assert {:error, _, _, _, _, _} = CaseStyle.from_string("t", CaseStyle.PascalCase)
+  end
+
+  test "fails on lowercase char at the start" do
+    assert {:error, _, _, _, _, _} = CaseStyle.from_string("testing", CaseStyle.PascalCase)
+  end
 end

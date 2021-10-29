@@ -105,20 +105,28 @@ defmodule CaseStyleTest do
   end
 
   describe "convert" do
-    test "camel to snake" do
-      assert {:ok, "test_testing"} == CaseStyle.camel_to_snake("testTesting")
-    end
-
     test "snake to camel" do
       assert {:ok, "testTesting"} == CaseStyle.snake_to_camel("test_testing")
+    end
+
+    test "snake to kebab" do
+      assert {:ok, "test-testing"} == CaseStyle.snake_to_kebab("test_testing")
+    end
+
+    test "snake to pascal" do
+      assert {:ok, "TestTesting"} == CaseStyle.snake_to_pascal("test_testing")
+    end
+
+    test "camel to snake" do
+      assert {:ok, "test_testing"} == CaseStyle.camel_to_snake("testTesting")
     end
 
     test "camel to kebab" do
       assert {:ok, "test-testing"} == CaseStyle.camel_to_kebab("testTesting")
     end
 
-    test "snake to kebab" do
-      assert {:ok, "test-testing"} == CaseStyle.snake_to_kebab("test_testing")
+    test "camel to pascal" do
+      assert {:ok, "TestTesting"} == CaseStyle.camel_to_pascal("testTesting")
     end
 
     test "kebab to snake" do
@@ -128,6 +136,10 @@ defmodule CaseStyleTest do
     test "kebab to camel" do
       assert {:ok, "testTesting"} == CaseStyle.kebab_to_camel("test-testing")
     end
+
+    test "kebab to pascal" do
+      assert {:ok, "TestTesting"} == CaseStyle.kebab_to_pascal("test-testing")
+    end
   end
 
   describe "convert!" do
@@ -135,16 +147,24 @@ defmodule CaseStyleTest do
       assert "test_testing" == CaseStyle.camel_to_snake!("testTesting")
     end
 
-    test "snake to camel" do
-      assert "testTesting" == CaseStyle.snake_to_camel!("test_testing")
-    end
-
     test "camel to kebab" do
       assert "test-testing" == CaseStyle.camel_to_kebab!("testTesting")
     end
 
+    test "camel to pascal" do
+      assert "TestTesting" == CaseStyle.camel_to_pascal!("testTesting")
+    end
+
+    test "snake to camel" do
+      assert "testTesting" == CaseStyle.snake_to_camel!("test_testing")
+    end
+
     test "snake to kebab" do
       assert "test-testing" == CaseStyle.snake_to_kebab!("test_testing")
+    end
+
+    test "snake to pascal" do
+      assert "TestTesting" == CaseStyle.snake_to_pascal!("test_testing")
     end
 
     test "kebab to snake" do
@@ -153,6 +173,10 @@ defmodule CaseStyleTest do
 
     test "kebab to camel" do
       assert "testTesting" == CaseStyle.kebab_to_camel!("test-testing")
+    end
+
+    test "kebab to pascal" do
+      assert "TestTesting" == CaseStyle.kebab_to_pascal!("test-testing")
     end
   end
 
