@@ -191,6 +191,7 @@ defmodule CaseStyleTest do
         {"_123testing", "_123testing"},
         {"_123Testing", "_123_testing"},
         {"testing__Testing__Testing", "testing___testing___testing"},
+        {"_Testing", "__testing"},
         {"1234", "1234"},
         {"_tESTING", "_t_e_s_t_i_n_g"}
       ],

@@ -40,7 +40,8 @@ defmodule CaseStyle.CamelCase do
   defp parse_token({:digitchar, s}), do: [%Digit{value: s}]
   defp parse_token({:lowercase, s}), do: [%Char{value: s}]
   defp parse_token({:uppercase, s}), do: [%AfterSpacingChar{value: s}, %Spacing{}]
-  defp parse_token({:first_char, s}), do: [%FirstLetter{value: s}]
+  defp parse_token({:first_char_uppercase, [s]}), do: [%FirstLetter{value: [s + 32]}, %Spacing{}]
+  defp parse_token({:first_char_lowercase, s}), do: [%FirstLetter{value: s}]
   defp parse_token({:literal, s}), do: [%Literal{value: s}]
 
   @impl true

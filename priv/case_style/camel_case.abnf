@@ -1,8 +1,9 @@
-case = [literal] [first-char] string 
+case = [literal] [first-char-lowercase / first-char-uppercase] string 
 string = 0*char
 
 char = lowercase / uppercase / digitchar / literal
-first-char = lowerchar / upperchar
+first-char-lowercase = lowerchar 
+first-char-uppercase = upperchar 
 lowercase = lowerchar
 lowerchar = %x61-7A
 uppercase = upperchar
