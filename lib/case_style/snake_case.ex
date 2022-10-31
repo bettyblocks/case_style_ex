@@ -28,7 +28,6 @@ defmodule CaseStyle.SnakeCase do
   @spacing_char ?_
   @literal Enum.to_list(?!..?/) ++ Enum.to_list(?:..?@) ++ Enum.to_list(?[..?`) ++ [@spacing_char]
   @first_char @lowerchar ++ @upperchar
-  @char []
 
   @spacing_binary to_string([@spacing_char])
   @upper_binary Enum.map(@upperchar, &to_string([&1]))
@@ -47,6 +46,7 @@ defmodule CaseStyle.SnakeCase do
            when binary_part(txt, 0, 1) == @spacing_binary and
                   binary_part(txt, 1, 1) in @digit_binary
 
+  @impl true
   def parse(text) do
     case do_parse(text, []) do
       {:ok, tokens, "", a, b, c} -> {:ok, [%Start{} | tokens] ++ [%End{}], "", a, b, c}
@@ -54,15 +54,15 @@ defmodule CaseStyle.SnakeCase do
     end
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, []) when s in @literal do
+  defp do_parse(<<s, rest::bytes>>, []) when s in @literal do
     do_parse(rest, [%Literal{value: [s]}])
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, []) when s in @lowerchar or s in @upperchar do
+  defp do_parse(<<s, rest::bytes>>, []) when s in @first_char do
     do_parse(rest, [%FirstLetter{value: [s]}])
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, [%Literal{}] = tokens)
+  defp do_parse(<<s, rest::bytes>>, [%Literal{}] = tokens)
        when s in @lowerchar or s in @upperchar do
     do_parse(rest, [%FirstLetter{value: [s]} | tokens])
   end
@@ -80,19 +80,19 @@ defmodule CaseStyle.SnakeCase do
     do_parse(rest, [%AfterSpacingDigit{value: [s]} | [%Spacing{} | tokens]])
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @lowerchar or s in @upperchar do
+  defp do_parse(<<s, rest::bytes>>, tokens) when s in @lowerchar or s in @upperchar do
     do_parse(rest, [%Char{value: [s]} | tokens])
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @digit do
+  defp do_parse(<<s, rest::bytes>>, tokens) when s in @digit do
     do_parse(rest, [%Digit{value: [s]} | tokens])
   end
 
-  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @literal do
+  defp do_parse(<<s, rest::bytes>>, tokens) when s in @literal do
     do_parse(rest, [%Literal{value: [s]} | tokens])
   end
 
-  defp do_parse(_, tokens) do
+  defp do_parse(_, _) do
     {:error, nil, nil, nil, nil, nil}
   end
 
