@@ -60,7 +60,7 @@ defmodule CaseStyle.SnakeCase do
 
   @impl true
   def to_string(%CaseStyle{tokens: tokens}) do
-    tokens |> Enum.map(&stringify_token/1) |> Enum.join()
+    Enum.map_join(tokens, &stringify_token/1)
   end
 
   @spec stringify_token(Tokens.possible_tokens()) :: charlist

@@ -30,6 +30,29 @@ defmodule CaseStyle.SnakeCaseTest do
     end
   )
 
+  test "__testing__!" do
+    {:ok,
+     %CaseStyle{
+       from_type: CaseStyle.SnakeCase,
+       tokens: [
+         %CaseStyle.Tokens.Start{},
+         %CaseStyle.Tokens.Literal{value: '_'},
+         %CaseStyle.Tokens.Spacing{},
+         %CaseStyle.Tokens.AfterSpacingChar{value: 't'},
+         %CaseStyle.Tokens.Char{value: 'e'},
+         %CaseStyle.Tokens.Char{value: 's'},
+         %CaseStyle.Tokens.Char{value: 't'},
+         %CaseStyle.Tokens.Char{value: 'i'},
+         %CaseStyle.Tokens.Char{value: 'n'},
+         %CaseStyle.Tokens.Char{value: 'g'},
+         %CaseStyle.Tokens.Literal{value: '_'},
+         %CaseStyle.Tokens.Literal{value: '_'},
+         %CaseStyle.Tokens.Literal{value: '!'},
+         %CaseStyle.Tokens.End{}
+       ]
+     }} = CaseStyle.from_string("__testing__!", CaseStyle.SnakeCase)
+  end
+
   test "fails on emoji" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.SnakeCase)
   end
