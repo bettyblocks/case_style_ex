@@ -22,41 +22,79 @@ defmodule CaseStyle.SnakeCase do
 
   @type t :: %__MODULE__{tokens: Tokens.t()}
 
-  use AbnfParsec,
-    abnf_file: "priv/case_style/snake_case.abnf",
-    unbox: [
-      "lowerchar",
-      "upperchar",
-      "char",
-      "case",
-      "string",
-      "digit",
-      "spacing-char",
-      "double-underscore"
-    ],
-    parse: :case,
-    transform: %{
-      "case" => {:post_traverse, :post_processing}
-    }
+  @lowerchar Enum.to_list(?a..?z)
+  @upperchar Enum.to_list(?A..?Z)
+  @digit Enum.to_list(?0..?9)
+  @spacing_char ?_
+  @literal Enum.to_list(?!..?/) ++ Enum.to_list(?:..?@) ++ Enum.to_list(?[..?`) ++ [@spacing_char]
+  @first_char @lowerchar ++ @upperchar
+  @char []
 
-  @external_resource "priv/case_style/snake_case.abnf"
+  @spacing_binary to_string([@spacing_char])
+  @upper_binary Enum.map(@upperchar, &to_string([&1]))
+  @lower_binary Enum.map(@lowerchar, &to_string([&1]))
+  @digit_binary Enum.map(@digit, &to_string([&1]))
 
-  defp post_processing(_a, b, c, _d, _e) do
-    tokens = [%End{}] ++ Enum.flat_map(b, &parse_token/1) ++ [%Start{}]
-    {tokens, c}
+  defguard is_lowercase_spacing(txt)
+           when binary_part(txt, 0, 1) == @spacing_binary and
+                  binary_part(txt, 1, 1) in @lower_binary
+
+  defguard is_uppercase_spacing(txt)
+           when binary_part(txt, 0, 1) == @spacing_binary and
+                  binary_part(txt, 1, 1) in @upper_binary
+
+  defguard is_digit_spacing(txt)
+           when binary_part(txt, 0, 1) == @spacing_binary and
+                  binary_part(txt, 1, 1) in @digit_binary
+
+  def parse(text) do
+    case do_parse(text, []) do
+      {:ok, tokens, "", a, b, c} -> {:ok, [%Start{} | tokens] ++ [%End{}], "", a, b, c}
+      err -> err
+    end
   end
 
-  defp parse_token({:first_char, s}), do: [%FirstLetter{value: s}]
-  defp parse_token({:lowercase, s}), do: [%Char{value: s}]
-  defp parse_token({:lowercase_spacing, [_, s]}), do: [%AfterSpacingChar{value: [s]}, %Spacing{}]
-  defp parse_token({:uppercase, s}), do: [%Char{value: s}]
-  defp parse_token({:uppercase_spacing, [_, s]}), do: [%AfterSpacingChar{value: [s]}, %Spacing{}]
-  defp parse_token({:digitchar, s}), do: [%Digit{value: s}]
-  defp parse_token({:digitchar_spacing, [_, s]}), do: [%AfterSpacingDigit{value: [s]}, %Spacing{}]
-  defp parse_token({:string, [s]}), do: [%Literal{value: s}]
-  defp parse_token({:literal, ["__"]}), do: [%Literal{value: "__"}]
-  defp parse_token({:literal, s}), do: [%Literal{value: s}]
-  defp parse_token("_"), do: [%Spacing{}]
+  defp do_parse(<<s, rest::bytes>> = text, []) when s in @literal do
+    do_parse(rest, [%Literal{value: [s]}])
+  end
+
+  defp do_parse(<<s, rest::bytes>> = text, []) when s in @lowerchar or s in @upperchar do
+    do_parse(rest, [%FirstLetter{value: [s]}])
+  end
+
+  defp do_parse(<<s, rest::bytes>> = text, [%Literal{}] = tokens)
+       when s in @lowerchar or s in @upperchar do
+    do_parse(rest, [%FirstLetter{value: [s]} | tokens])
+  end
+
+  defp do_parse("", tokens) do
+    {:ok, :lists.reverse(tokens), "", :ok, :ok, :ok}
+  end
+
+  defp do_parse(<<_, s, rest::bytes>> = text, tokens)
+       when is_lowercase_spacing(text) or is_uppercase_spacing(text) do
+    do_parse(rest, [%AfterSpacingChar{value: [s]} | [%Spacing{} | tokens]])
+  end
+
+  defp do_parse(<<_, s, rest::bytes>> = text, tokens) when is_digit_spacing(text) do
+    do_parse(rest, [%AfterSpacingDigit{value: [s]} | [%Spacing{} | tokens]])
+  end
+
+  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @lowerchar or s in @upperchar do
+    do_parse(rest, [%Char{value: [s]} | tokens])
+  end
+
+  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @digit do
+    do_parse(rest, [%Digit{value: [s]} | tokens])
+  end
+
+  defp do_parse(<<s, rest::bytes>> = text, tokens) when s in @literal do
+    do_parse(rest, [%Literal{value: [s]} | tokens])
+  end
+
+  defp do_parse(_, tokens) do
+    {:error, nil, nil, nil, nil, nil}
+  end
 
   @impl true
   def to_string(%CaseStyle{tokens: tokens}) do
