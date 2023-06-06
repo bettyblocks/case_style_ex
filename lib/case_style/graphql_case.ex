@@ -11,10 +11,7 @@ defmodule CaseStyle.GraphQLCase do
 
   @impl true
   def parse(<<?_, number::integer, rest::binary>>) when number in ?0..?9 do
-    case CamelCase.parse(<<number, rest::binary>>) do
-      {:ok, tokens} -> {:ok, Map.put(tokens, :from_type, __MODULE__)}
-      e -> e
-    end
+    CamelCase.parse(<<number, rest::binary>>)
   end
 
   def parse(input), do: CamelCase.parse(input)
