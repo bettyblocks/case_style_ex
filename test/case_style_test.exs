@@ -219,4 +219,12 @@ defmodule CaseStyleTest do
   test "snake to camel with starting double underscore" do
     assert "_Dunder" == CaseStyle.snake_to_camel!("__dunder")
   end
+
+  test "snake to graphql" do
+    assert "_123Testing" == CaseStyle.snake_to_graphql!("123_testing")
+  end
+
+  test "graphql to snake" do
+    assert "123_testing" == CaseStyle.graphql_to_snake!("_123Testing")
+  end
 end

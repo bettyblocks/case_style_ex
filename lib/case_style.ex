@@ -96,11 +96,13 @@ defmodule CaseStyle do
 
   [
     {:snake_to_camel, CaseStyle.SnakeCase, CaseStyle.CamelCase},
+    {:snake_to_graphql, CaseStyle.SnakeCase, CaseStyle.GraphQLCase},
     {:snake_to_kebab, CaseStyle.SnakeCase, CaseStyle.KebabCase},
     {:snake_to_pascal, CaseStyle.SnakeCase, CaseStyle.PascalCase},
     {:camel_to_snake, CaseStyle.CamelCase, CaseStyle.SnakeCase},
     {:camel_to_kebab, CaseStyle.CamelCase, CaseStyle.KebabCase},
     {:camel_to_pascal, CaseStyle.CamelCase, CaseStyle.PascalCase},
+    {:graphql_to_snake, CaseStyle.GraphQLCase, CaseStyle.SnakeCase},
     {:kebab_to_snake, CaseStyle.KebabCase, CaseStyle.SnakeCase},
     {:kebab_to_camel, CaseStyle.KebabCase, CaseStyle.CamelCase},
     {:kebab_to_pascal, CaseStyle.KebabCase, CaseStyle.PascalCase},
