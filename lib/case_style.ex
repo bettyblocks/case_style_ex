@@ -16,7 +16,7 @@ defmodule CaseStyle do
   @type parser_output :: {:ok, list, binary, map, {pos_integer, pos_integer}, pos_integer}
 
   @callback parse(input :: binary) :: parser_output | nimble_parsec_error
-  @callback might_be?(input :: binary) :: boolean
+  @callback matches?(input :: binary) :: boolean
   @callback to_string(CaseStyle.t()) :: binary
 
   @doc """

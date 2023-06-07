@@ -4,10 +4,10 @@ defmodule CaseStyle.CamelCaseTest do
   test "okteSting12" do
     input = "_ok_teSting_12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.SnakeCase)
-    refute CaseStyle.CamelCase.might_be?(input)
+    refute CaseStyle.CamelCase.matches?(input)
     assert "_okTesting_12" = output = CaseStyle.CamelCase.to_string(casing)
-    refute CaseStyle.CamelCase.might_be?(output)
-    assert CaseStyle.CamelCase.might_be?("okTesting12")
+    refute CaseStyle.CamelCase.matches?(output)
+    assert CaseStyle.CamelCase.matches?("okTesting12")
   end
 
   Enum.each(
@@ -28,7 +28,7 @@ defmodule CaseStyle.CamelCaseTest do
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.CamelCase)
         assert @input = output = CaseStyle.CamelCase.to_string(casing)
-        assert CaseStyle.CamelCase.might_be?(output)
+        assert CaseStyle.CamelCase.matches?(output)
       end
     end
   )
@@ -37,25 +37,25 @@ defmodule CaseStyle.CamelCaseTest do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.CamelCase)
   end
 
-  describe "might_be?" do
+  describe "matches?" do
     test "camelcase" do
-      assert CaseStyle.CamelCase.might_be?("testProperty")
+      assert CaseStyle.CamelCase.matches?("testProperty")
     end
 
     test "snakecase" do
-      refute CaseStyle.CamelCase.might_be?("test_property")
+      refute CaseStyle.CamelCase.matches?("test_property")
     end
 
     test "kebabcase" do
-      refute CaseStyle.CamelCase.might_be?("test-property")
+      refute CaseStyle.CamelCase.matches?("test-property")
     end
 
     test "pascalcase" do
-      refute CaseStyle.CamelCase.might_be?("TestProperty")
+      refute CaseStyle.CamelCase.matches?("TestProperty")
     end
 
     test "starting with number" do
-      assert CaseStyle.CamelCase.might_be?("1Testing")
+      assert CaseStyle.CamelCase.matches?("1Testing")
     end
   end
 end

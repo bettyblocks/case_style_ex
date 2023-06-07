@@ -229,4 +229,15 @@ defmodule CaseStyleTest do
   test "snake to camel with starting double underscore" do
     assert "_Dunder" == CaseStyle.snake_to_camel!("__dunder")
   end
+
+  test "might_be? still works" do
+    # these tests will output deprecation warnings.
+    # But we still want to test that they actually work
+
+    refute CaseStyle.CamelCase.might_be?("test_property")
+    assert CaseStyle.GraphQLCase.might_be?("test_property")
+    assert CaseStyle.SnakeCase.might_be?("test_property")
+    refute CaseStyle.PascalCase.might_be?("test_property")
+    refute CaseStyle.KebabCase.might_be?("test_property")
+  end
 end

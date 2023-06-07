@@ -71,13 +71,16 @@ defmodule CaseStyle.CamelCase do
   defp stringify_token(%module{value: x}) when module in [AfterSpacingDigit], do: [?_, x]
   defp stringify_token(%Literal{value: x}), do: x
 
+  @deprecated "use matches?/1 instead"
+  defdelegate might_be?(input), to: __MODULE__, as: :matches?
+
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])
   @impl true
-  def might_be?(<<first_char, _::binary>>) when first_char in ?A..?Z do
+  def matches?(<<first_char, _::binary>>) when first_char in ?A..?Z do
     false
   end
 
-  def might_be?(input) do
+  def matches?(input) do
     input
     |> String.to_charlist()
     |> Enum.all?(fn x -> x in @allowed_chars end)

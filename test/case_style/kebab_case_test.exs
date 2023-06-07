@@ -4,9 +4,9 @@ defmodule CaseStyle.KebabCaseTest do
   test "-ok-teSting-12" do
     input = "-ok-teSting-12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.KebabCase)
-    refute CaseStyle.KebabCase.might_be?(input)
+    refute CaseStyle.KebabCase.matches?(input)
     assert "-ok-testing-12" = output = CaseStyle.KebabCase.to_string(casing)
-    assert CaseStyle.KebabCase.might_be?(output)
+    assert CaseStyle.KebabCase.matches?(output)
   end
 
   Enum.each(
@@ -25,7 +25,7 @@ defmodule CaseStyle.KebabCaseTest do
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.KebabCase)
         assert @input = output = CaseStyle.KebabCase.to_string(casing)
-        assert CaseStyle.KebabCase.might_be?(output)
+        assert CaseStyle.KebabCase.matches?(output)
       end
     end
   )
@@ -34,25 +34,25 @@ defmodule CaseStyle.KebabCaseTest do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.KebabCase)
   end
 
-  describe "might_be?" do
+  describe "matches?" do
     test "camelcase" do
-      refute CaseStyle.KebabCase.might_be?("testProperty")
+      refute CaseStyle.KebabCase.matches?("testProperty")
     end
 
     test "snakecase" do
-      refute CaseStyle.KebabCase.might_be?("test_property")
+      refute CaseStyle.KebabCase.matches?("test_property")
     end
 
     test "kebabcase" do
-      assert CaseStyle.KebabCase.might_be?("test-property")
+      assert CaseStyle.KebabCase.matches?("test-property")
     end
 
     test "pascalcase" do
-      refute CaseStyle.KebabCase.might_be?("TestProperty")
+      refute CaseStyle.KebabCase.matches?("TestProperty")
     end
 
     test "starting with number" do
-      assert CaseStyle.KebabCase.might_be?("1-testing")
+      assert CaseStyle.KebabCase.matches?("1-testing")
     end
   end
 end

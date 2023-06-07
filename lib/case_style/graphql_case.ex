@@ -29,13 +29,16 @@ defmodule CaseStyle.GraphQLCase do
 
   def to_string(input), do: CamelCase.to_string(input)
 
+  @deprecated "use matches?/1 instead"
+  defdelegate might_be?(input), to: __MODULE__, as: :matches?
+
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9, '_'])
   @impl true
-  def might_be?(<<first_char, _::binary>>) when first_char in ?A..?Z or first_char in ?0..?9 do
+  def matches?(<<first_char, _::binary>>) when first_char in ?A..?Z or first_char in ?0..?9 do
     false
   end
 
-  def might_be?(input) do
+  def matches?(input) do
     input
     |> String.to_charlist()
     |> Enum.all?(fn x -> x in @allowed_chars end)
