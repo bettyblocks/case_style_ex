@@ -4,10 +4,10 @@ defmodule CaseStyle.PascalCaseTest do
   test "_Ok_teSting_12" do
     input = "_Ok_teSting_12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.SnakeCase)
-    refute CaseStyle.PascalCase.might_be?(input)
+    refute CaseStyle.PascalCase.matches?(input)
     assert "_OkTesting_12" = output = CaseStyle.PascalCase.to_string(casing)
-    refute CaseStyle.PascalCase.might_be?(output)
-    assert CaseStyle.PascalCase.might_be?("OkTesting12")
+    refute CaseStyle.PascalCase.matches?(output)
+    assert CaseStyle.PascalCase.matches?("OkTesting12")
   end
 
   Enum.each(
@@ -28,7 +28,7 @@ defmodule CaseStyle.PascalCaseTest do
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.PascalCase)
         assert @input = output = CaseStyle.PascalCase.to_string(casing)
-        assert CaseStyle.PascalCase.might_be?(output)
+        assert CaseStyle.PascalCase.matches?(output)
       end
     end
   )
@@ -43,5 +43,27 @@ defmodule CaseStyle.PascalCaseTest do
 
   test "fails on lowercase char at the start" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("testing", CaseStyle.PascalCase)
+  end
+
+  describe "matches?" do
+    test "camelcase" do
+      refute CaseStyle.PascalCase.matches?("testProperty")
+    end
+
+    test "snakecase" do
+      refute CaseStyle.PascalCase.matches?("test_property")
+    end
+
+    test "kebabcase" do
+      refute CaseStyle.PascalCase.matches?("test-property")
+    end
+
+    test "pascalcase" do
+      assert CaseStyle.PascalCase.matches?("TestProperty")
+    end
+
+    test "starting with number" do
+      assert CaseStyle.PascalCase.matches?("1Testing")
+    end
   end
 end

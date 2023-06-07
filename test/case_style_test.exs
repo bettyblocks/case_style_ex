@@ -160,6 +160,11 @@ defmodule CaseStyleTest do
       assert "testTesting" == CaseStyle.snake_to_camel!("test_testing")
     end
 
+    test "snake to graphql" do
+      assert "testTesting" == CaseStyle.snake_to_graphql!("test_testing")
+      assert "_123Testing" == CaseStyle.snake_to_graphql!("123_testing")
+    end
+
     test "snake to kebab" do
       assert "test-testing" == CaseStyle.snake_to_kebab!("test_testing")
     end
@@ -178,6 +183,11 @@ defmodule CaseStyleTest do
 
     test "kebab to pascal" do
       assert "TestTesting" == CaseStyle.kebab_to_pascal!("test-testing")
+    end
+
+    test "graphql to snake" do
+      assert "test_testing" == CaseStyle.graphql_to_snake!("testTesting")
+      assert "123_testing" == CaseStyle.graphql_to_snake!("_123Testing")
     end
   end
 
@@ -218,5 +228,16 @@ defmodule CaseStyleTest do
 
   test "snake to camel with starting double underscore" do
     assert "_Dunder" == CaseStyle.snake_to_camel!("__dunder")
+  end
+
+  test "might_be? still works" do
+    # these tests will output deprecation warnings.
+    # But we still want to test that they actually work
+
+    refute CaseStyle.CamelCase.might_be?("test_property")
+    assert CaseStyle.GraphQLCase.might_be?("test_property")
+    assert CaseStyle.SnakeCase.might_be?("test_property")
+    refute CaseStyle.PascalCase.might_be?("test_property")
+    refute CaseStyle.KebabCase.might_be?("test_property")
   end
 end

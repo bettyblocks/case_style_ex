@@ -12,14 +12,11 @@ defmodule CaseStyle do
   @type t :: %__MODULE__{tokens: CaseStyle.Tokens.t(), from_type: module}
 
   @type nimble_parsec_error ::
-          {:error, any, any, any, any, any}
-  # {:error, list, binary, map, {pos_integer, pos_integer}, pos_integer}
+          {:error, binary, binary, map, {pos_integer, pos_integer}, pos_integer}
+  @type parser_output :: {:ok, list, binary, map, {pos_integer, pos_integer}, pos_integer}
 
-  @type parser_ouput :: {:ok, list, binary, map, {pos_integer, pos_integer}, pos_integer}
-
-  # @callback parse(input :: binary) :: {:ok, CaseStyle.t()} | parser_ouput | nimble_parsec_error
-  @callback parse(input :: binary) :: parser_ouput | nimble_parsec_error
-  @callback might_be?(input :: binary) :: boolean
+  @callback parse(input :: binary) :: parser_output | nimble_parsec_error
+  @callback matches?(input :: binary) :: boolean
   @callback to_string(CaseStyle.t()) :: binary
 
   @doc """
@@ -48,7 +45,7 @@ defmodule CaseStyle do
   }
   ```
   """
-  @spec from_string(binary, module) :: {:ok, CaseStyle.t()} | parser_ouput | nimble_parsec_error
+  @spec from_string(binary, module) :: {:ok, CaseStyle.t()} | parser_output | nimble_parsec_error
   def from_string(input, module) do
     case module.parse(input) do
       {:ok, tokens, "", _, _, _} ->
@@ -96,11 +93,13 @@ defmodule CaseStyle do
 
   [
     {:snake_to_camel, CaseStyle.SnakeCase, CaseStyle.CamelCase},
+    {:snake_to_graphql, CaseStyle.SnakeCase, CaseStyle.GraphQLCase},
     {:snake_to_kebab, CaseStyle.SnakeCase, CaseStyle.KebabCase},
     {:snake_to_pascal, CaseStyle.SnakeCase, CaseStyle.PascalCase},
     {:camel_to_snake, CaseStyle.CamelCase, CaseStyle.SnakeCase},
     {:camel_to_kebab, CaseStyle.CamelCase, CaseStyle.KebabCase},
     {:camel_to_pascal, CaseStyle.CamelCase, CaseStyle.PascalCase},
+    {:graphql_to_snake, CaseStyle.GraphQLCase, CaseStyle.SnakeCase},
     {:kebab_to_snake, CaseStyle.KebabCase, CaseStyle.SnakeCase},
     {:kebab_to_camel, CaseStyle.KebabCase, CaseStyle.CamelCase},
     {:kebab_to_pascal, CaseStyle.KebabCase, CaseStyle.PascalCase},

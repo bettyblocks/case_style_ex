@@ -77,9 +77,12 @@ defmodule CaseStyle.KebabCase do
   defp stringify_token(%module{value: x}) when module in [Digit, AfterSpacingDigit], do: x
   defp stringify_token(%Literal{value: x}), do: x
 
+  @deprecated "use matches?/1 instead"
+  defdelegate might_be?(input), to: __MODULE__, as: :matches?
+
   @lowercase_digits_and_dash Enum.concat([?a..?z, ?0..?9, '-'])
   @impl true
-  def might_be?(input) do
+  def matches?(input) do
     input
     |> String.to_charlist()
     |> Enum.all?(fn x -> x in @lowercase_digits_and_dash end)
