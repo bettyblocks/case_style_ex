@@ -1,7 +1,13 @@
 defmodule CaseStyle.GraphQLCase do
   @moduledoc """
   Module for converting from and to graphql.
-  This is just camelCase only that it doesnt allow that the string starts with a number.
+  GraphQL casing is similar to camelCase only it doesn't allow that it starts with a number.
+
+  Examples:
+  ```
+  normalText
+  _1234GraphqlCase
+  ```
   """
   @behaviour CaseStyle
 
