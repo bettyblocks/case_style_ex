@@ -33,4 +33,26 @@ defmodule CaseStyle.KebabCaseTest do
   test "fails on emoji" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.KebabCase)
   end
+
+  describe "might_be?" do
+    test "camelcase" do
+      refute CaseStyle.KebabCase.might_be?("testProperty")
+    end
+
+    test "snakecase" do
+      refute CaseStyle.KebabCase.might_be?("test_property")
+    end
+
+    test "kebabcase" do
+      assert CaseStyle.KebabCase.might_be?("test-property")
+    end
+
+    test "pascalcase" do
+      refute CaseStyle.KebabCase.might_be?("TestProperty")
+    end
+
+    test "starting with number" do
+      assert CaseStyle.KebabCase.might_be?("1-testing")
+    end
+  end
 end

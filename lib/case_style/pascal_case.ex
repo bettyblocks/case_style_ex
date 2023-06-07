@@ -73,7 +73,7 @@ defmodule CaseStyle.PascalCase do
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])
   @impl true
-  def might_be?(<<first_char, _>>) when first_char in ?a..?z do
+  def might_be?(<<first_char, _::binary>>) when first_char in ?a..?z do
     false
   end
 

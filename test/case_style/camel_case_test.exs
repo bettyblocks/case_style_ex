@@ -36,4 +36,26 @@ defmodule CaseStyle.CamelCaseTest do
   test "fails on emoji" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.CamelCase)
   end
+
+  describe "might_be?" do
+    test "camelcase" do
+      assert CaseStyle.CamelCase.might_be?("testProperty")
+    end
+
+    test "snakecase" do
+      refute CaseStyle.CamelCase.might_be?("test_property")
+    end
+
+    test "kebabcase" do
+      refute CaseStyle.CamelCase.might_be?("test-property")
+    end
+
+    test "pascalcase" do
+      refute CaseStyle.CamelCase.might_be?("TestProperty")
+    end
+
+    test "starting with number" do
+      assert CaseStyle.CamelCase.might_be?("1Testing")
+    end
+  end
 end

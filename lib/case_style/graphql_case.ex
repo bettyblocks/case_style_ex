@@ -31,7 +31,7 @@ defmodule CaseStyle.GraphQLCase do
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9, '_'])
   @impl true
-  def might_be?(<<first_char, _>>) when first_char in ?A..?Z do
+  def might_be?(<<first_char, _::binary>>) when first_char in ?A..?Z or first_char in ?0..?9 do
     false
   end
 

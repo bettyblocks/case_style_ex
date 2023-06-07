@@ -44,4 +44,26 @@ defmodule CaseStyle.PascalCaseTest do
   test "fails on lowercase char at the start" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("testing", CaseStyle.PascalCase)
   end
+
+  describe "might_be?" do
+    test "camelcase" do
+      refute CaseStyle.PascalCase.might_be?("testProperty")
+    end
+
+    test "snakecase" do
+      refute CaseStyle.PascalCase.might_be?("test_property")
+    end
+
+    test "kebabcase" do
+      refute CaseStyle.PascalCase.might_be?("test-property")
+    end
+
+    test "pascalcase" do
+      assert CaseStyle.PascalCase.might_be?("TestProperty")
+    end
+
+    test "starting with number" do
+      assert CaseStyle.PascalCase.might_be?("1Testing")
+    end
+  end
 end

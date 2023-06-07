@@ -36,4 +36,26 @@ defmodule CaseStyle.GraphQLCaseTest do
   test "fails on emoji" do
     assert {:error, _, _, _, _, _} = CaseStyle.from_string("🦖", CaseStyle.GraphQLCase)
   end
+
+  describe "might_be?" do
+    test "camelcase" do
+      assert CaseStyle.GraphQLCase.might_be?("testProperty")
+    end
+
+    test "snakecase" do
+      assert CaseStyle.GraphQLCase.might_be?("test_property")
+    end
+
+    test "kebabcase" do
+      refute CaseStyle.GraphQLCase.might_be?("test-property")
+    end
+
+    test "pascalcase" do
+      refute CaseStyle.GraphQLCase.might_be?("TestProperty")
+    end
+
+    test "not starting with number" do
+      refute CaseStyle.GraphQLCase.might_be?("1_testing")
+    end
+  end
 end
