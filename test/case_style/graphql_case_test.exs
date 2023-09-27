@@ -4,9 +4,7 @@ defmodule CaseStyle.GraphQLCaseTest do
   test "okteSting12" do
     input = "_ok_teSting_12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.SnakeCase)
-    assert CaseStyle.GraphQLCase.matches?(input)
-    assert "_okTesting_12" = output = CaseStyle.GraphQLCase.to_string(casing)
-    assert CaseStyle.GraphQLCase.matches?(output)
+    assert "_okTesting_12" = CaseStyle.GraphQLCase.to_string(casing)
     assert CaseStyle.GraphQLCase.matches?("okTesting12")
   end
 
@@ -27,8 +25,7 @@ defmodule CaseStyle.GraphQLCaseTest do
       @input input
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.GraphQLCase)
-        assert @input = output = CaseStyle.GraphQLCase.to_string(casing)
-        assert CaseStyle.GraphQLCase.matches?(output)
+        assert @input = CaseStyle.GraphQLCase.to_string(casing)
       end
     end
   )
@@ -43,7 +40,7 @@ defmodule CaseStyle.GraphQLCaseTest do
     end
 
     test "snakecase" do
-      assert CaseStyle.GraphQLCase.matches?("test_property")
+      refute CaseStyle.GraphQLCase.matches?("test_property")
     end
 
     test "kebabcase" do

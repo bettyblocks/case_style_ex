@@ -91,22 +91,23 @@ defmodule CaseStyle do
 
   ### convenience functions
 
-  [
-    {:snake_to_camel, CaseStyle.SnakeCase, CaseStyle.CamelCase},
-    {:snake_to_graphql, CaseStyle.SnakeCase, CaseStyle.GraphQLCase},
-    {:snake_to_kebab, CaseStyle.SnakeCase, CaseStyle.KebabCase},
-    {:snake_to_pascal, CaseStyle.SnakeCase, CaseStyle.PascalCase},
-    {:camel_to_snake, CaseStyle.CamelCase, CaseStyle.SnakeCase},
-    {:camel_to_kebab, CaseStyle.CamelCase, CaseStyle.KebabCase},
-    {:camel_to_pascal, CaseStyle.CamelCase, CaseStyle.PascalCase},
-    {:graphql_to_snake, CaseStyle.GraphQLCase, CaseStyle.SnakeCase},
-    {:kebab_to_snake, CaseStyle.KebabCase, CaseStyle.SnakeCase},
-    {:kebab_to_camel, CaseStyle.KebabCase, CaseStyle.CamelCase},
-    {:kebab_to_pascal, CaseStyle.KebabCase, CaseStyle.PascalCase},
-    {:pascal_to_snake, CaseStyle.PascalCase, CaseStyle.SnakeCase},
-    {:pascal_to_camel, CaseStyle.PascalCase, CaseStyle.CamelCase},
-    {:pascal_to_kebab, CaseStyle.PascalCase, CaseStyle.KebabCase}
+  @available_casings [
+    snake: CaseStyle.SnakeCase,
+    camel: CaseStyle.CamelCase,
+    pascal: CaseStyle.PascalCase,
+    kebab: CaseStyle.KebabCase,
+    graphql: CaseStyle.GraphQLCase
   ]
+
+  Enum.flat_map(@available_casings, fn {casing_from, module_from} ->
+    Enum.flat_map(@available_casings, fn {casing_to, module_to} ->
+      if casing_from == casing_to do
+        []
+      else
+        [{:"#{casing_from}_to_#{casing_to}", module_from, module_to}]
+      end
+    end)
+  end)
   |> Enum.map(fn {func_name, from, to} ->
     @spec unquote(func_name)(binary) :: {:ok, binary} | nimble_parsec_error
     @doc "Converts from `#{from |> Module.split() |> Enum.join(".")}` to `#{to |> Module.split() |> Enum.join(".")}`"
@@ -128,7 +129,7 @@ defmodule CaseStyle do
           to_string(casing, unquote(to))
 
         _ ->
-          raise "Unable to convert #{input}"
+          raise "Unable to convert #{input} in #{unquote(func_name)}"
       end
     end
   end)

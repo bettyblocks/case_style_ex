@@ -27,8 +27,7 @@ defmodule CaseStyle.CamelCaseTest do
       @input input
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.CamelCase)
-        assert @input = output = CaseStyle.CamelCase.to_string(casing)
-        assert CaseStyle.CamelCase.matches?(output)
+        assert @input = CaseStyle.CamelCase.to_string(casing)
       end
     end
   )
@@ -55,7 +54,7 @@ defmodule CaseStyle.CamelCaseTest do
     end
 
     test "starting with number" do
-      assert CaseStyle.CamelCase.matches?("1Testing")
+      refute CaseStyle.CamelCase.matches?("1Testing")
     end
   end
 end

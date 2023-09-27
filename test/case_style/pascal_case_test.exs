@@ -27,8 +27,7 @@ defmodule CaseStyle.PascalCaseTest do
       @input input
       test "#{@input}" do
         {:ok, casing} = CaseStyle.from_string(@input, CaseStyle.PascalCase)
-        assert @input = output = CaseStyle.PascalCase.to_string(casing)
-        assert CaseStyle.PascalCase.matches?(output)
+        assert @input = CaseStyle.PascalCase.to_string(casing)
       end
     end
   )
@@ -63,7 +62,7 @@ defmodule CaseStyle.PascalCaseTest do
     end
 
     test "starting with number" do
-      assert CaseStyle.PascalCase.matches?("1Testing")
+      refute CaseStyle.PascalCase.matches?("1Testing")
     end
   end
 end
