@@ -76,7 +76,7 @@ defmodule CaseStyle.PascalCase do
 
   @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9])
   @impl true
-  def matches?(<<first_char, _::binary>>) when first_char in ?a..?z do
+  def matches?(<<first_char, _::binary>>) when first_char in ?a..?z or first_char in ?0..?9 do
     false
   end
 

@@ -235,7 +235,7 @@ defmodule CaseStyleTest do
     # But we still want to test that they actually work
 
     refute CaseStyle.CamelCase.might_be?("test_property")
-    assert CaseStyle.GraphQLCase.might_be?("test_property")
+    assert CaseStyle.GraphQLCase.might_be?("testProperty")
     assert CaseStyle.SnakeCase.might_be?("test_property")
     refute CaseStyle.PascalCase.might_be?("test_property")
     refute CaseStyle.KebabCase.might_be?("test_property")

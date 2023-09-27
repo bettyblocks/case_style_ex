@@ -4,7 +4,7 @@ defmodule CaseStyle.MixProject do
   def project do
     [
       app: :case_style,
-      version: "0.5.0",
+      version: "0.6.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -37,7 +37,8 @@ defmodule CaseStyle.MixProject do
       {:abnf_parsec, "~> 1.0", runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.24", only: [:dev], runtime: false}
+      {:ex_doc, "~> 0.24", only: [:dev], runtime: false},
+      {:stream_data, "~> 0.6", only: :test}
     ]
   end
 end
