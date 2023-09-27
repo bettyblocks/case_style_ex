@@ -34,7 +34,7 @@ defmodule CaseStyle.PropertyTest do
           :skip
         end
       end,
-      10000
+      10_000
     )
   end
 

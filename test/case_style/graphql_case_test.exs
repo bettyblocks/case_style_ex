@@ -4,7 +4,7 @@ defmodule CaseStyle.GraphQLCaseTest do
   test "okteSting12" do
     input = "_ok_teSting_12"
     {:ok, casing} = CaseStyle.from_string(input, CaseStyle.SnakeCase)
-    assert "_okTesting_12" = output = CaseStyle.GraphQLCase.to_string(casing)
+    assert "_okTesting_12" = CaseStyle.GraphQLCase.to_string(casing)
     assert CaseStyle.GraphQLCase.matches?("okTesting12")
   end
 
