@@ -50,7 +50,7 @@ defmodule CaseStyle.CamelCase do
   end
 
   @spec stringify_token(Tokens.possible_tokens()) :: charlist | binary
-  defp stringify_token(%module{}) when module in [Start, End, Spacing], do: ''
+  defp stringify_token(%module{}) when module in [Start, End, Spacing], do: ~c""
 
   defp stringify_token(%module{value: [x]})
        when module in [AfterSpacingChar] and x in ?a..?z,

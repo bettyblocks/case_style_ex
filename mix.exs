@@ -4,8 +4,8 @@ defmodule CaseStyle.MixProject do
   def project do
     [
       app: :case_style,
-      version: "0.5.0",
-      elixir: "~> 1.10",
+      version: "1.0.0",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
@@ -20,7 +20,7 @@ defmodule CaseStyle.MixProject do
   defp package() do
     [
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/thomas9911/case_style_ex"}
+      links: %{"GitHub" => "https://github.com/bettyblocks/case_style_ex"}
     ]
   end
 
@@ -34,7 +34,7 @@ defmodule CaseStyle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   def deps do
     [
-      {:abnf_parsec, "~> 1.0", runtime: false},
+      {:abnf_parsec, "~> 2.0", runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.24", only: [:dev], runtime: false}

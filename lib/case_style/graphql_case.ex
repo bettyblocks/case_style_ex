@@ -32,7 +32,7 @@ defmodule CaseStyle.GraphQLCase do
   @deprecated "use matches?/1 instead"
   defdelegate might_be?(input), to: __MODULE__, as: :matches?
 
-  @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9, '_'])
+  @allowed_chars Enum.concat([?a..?z, ?A..?Z, ?0..?9, ~c"_"])
   @impl true
   def matches?(<<first_char, _::binary>>) when first_char in ?A..?Z or first_char in ?0..?9 do
     false
