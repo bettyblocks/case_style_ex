@@ -64,8 +64,8 @@ defmodule CaseStyle.KebabCase do
   end
 
   @spec stringify_token(Tokens.possible_tokens()) :: charlist
-  defp stringify_token(%module{}) when module in [Start, End], do: ''
-  defp stringify_token(%Spacing{}), do: '-'
+  defp stringify_token(%module{}) when module in [Start, End], do: ~c""
+  defp stringify_token(%Spacing{}), do: ~c"-"
 
   defp stringify_token(%module{value: [x]})
        when module in [FirstLetter, Char, AfterSpacingChar] and x in ?A..?Z,
@@ -80,7 +80,7 @@ defmodule CaseStyle.KebabCase do
   @deprecated "use matches?/1 instead"
   defdelegate might_be?(input), to: __MODULE__, as: :matches?
 
-  @lowercase_digits_and_dash Enum.concat([?a..?z, ?0..?9, '-'])
+  @lowercase_digits_and_dash Enum.concat([?a..?z, ?0..?9, ~c"-"])
   @impl true
   def matches?(input) do
     input
