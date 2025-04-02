@@ -5,7 +5,7 @@ defmodule CaseStyle.MixProject do
     [
       app: :case_style,
       version: "1.0.0",
-      elixir: "~> 1.17",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
@@ -20,7 +20,7 @@ defmodule CaseStyle.MixProject do
   defp package() do
     [
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/thomas9911/case_style_ex"}
+      links: %{"GitHub" => "https://github.com/bettyblocks/case_style_ex"}
     ]
   end
 
