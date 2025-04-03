@@ -29,16 +29,16 @@ defmodule CaseStyle do
        from_type: CaseStyle.SnakeCase,
        tokens: [
          %CaseStyle.Tokens.Start{},
-         %CaseStyle.Tokens.FirstLetter{value: 's'},
-         %CaseStyle.Tokens.Char{value: 'n'},
-         %CaseStyle.Tokens.Char{value: 'a'},
-         %CaseStyle.Tokens.Char{value: 'k'},
-         %CaseStyle.Tokens.Char{value: 'e'},
+         %CaseStyle.Tokens.FirstLetter{value: ~c"s"},
+         %CaseStyle.Tokens.Char{value: ~c"n"},
+         %CaseStyle.Tokens.Char{value: ~c"a"},
+         %CaseStyle.Tokens.Char{value: ~c"k"},
+         %CaseStyle.Tokens.Char{value: ~c"e"},
          %CaseStyle.Tokens.Spacing{},
-         %CaseStyle.Tokens.AfterSpacingChar{value: 'c'},
-         %CaseStyle.Tokens.Char{value: 'a'},
-         %CaseStyle.Tokens.Char{value: 's'},
-         %CaseStyle.Tokens.Char{value: 'e'},
+         %CaseStyle.Tokens.AfterSpacingChar{value: ~c"c"},
+         %CaseStyle.Tokens.Char{value: ~c"a"},
+         %CaseStyle.Tokens.Char{value: ~c"s"},
+         %CaseStyle.Tokens.Char{value: ~c"e"},
          %CaseStyle.Tokens.End{}
        ]
      }
@@ -67,16 +67,16 @@ defmodule CaseStyle do
   ...>  from_type: CaseStyle.SnakeCase,
   ...>  tokens: [
   ...>   %CaseStyle.Tokens.Start{},
-  ...>   %CaseStyle.Tokens.FirstLetter{value: 's'},
-  ...>   %CaseStyle.Tokens.Char{value: 'n'},
-  ...>   %CaseStyle.Tokens.Char{value: 'a'},
-  ...>   %CaseStyle.Tokens.Char{value: 'k'},
-  ...>   %CaseStyle.Tokens.Char{value: 'e'},
+  ...>   %CaseStyle.Tokens.FirstLetter{value: ~c"s"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"n"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"a"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"k"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"e"},
   ...>   %CaseStyle.Tokens.Spacing{},
-  ...>   %CaseStyle.Tokens.AfterSpacingChar{value: 'c'},
-  ...>   %CaseStyle.Tokens.Char{value: 'a'},
-  ...>   %CaseStyle.Tokens.Char{value: 's'},
-  ...>   %CaseStyle.Tokens.Char{value: 'e'},
+  ...>   %CaseStyle.Tokens.AfterSpacingChar{value: ~c"c"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"a"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"s"},
+  ...>   %CaseStyle.Tokens.Char{value: ~c"e"},
   ...>   %CaseStyle.Tokens.End{}
   ...>  ]
   ...> }
