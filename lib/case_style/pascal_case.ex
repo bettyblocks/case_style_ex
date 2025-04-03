@@ -32,9 +32,9 @@ defmodule CaseStyle.PascalCase do
 
   @external_resource "priv/case_style/pascal_case.abnf"
 
-  defp post_processing(_a, b, c, _d, _e) do
+  defp post_processing(a, b, c, _d, _e) do
     tokens = [%End{}] ++ Enum.flat_map(b, &parse_token/1) ++ [%Start{}]
-    {tokens, c}
+    {a, tokens, c}
   end
 
   defp parse_token({:digitchar, s}), do: [%Digit{value: s}]
